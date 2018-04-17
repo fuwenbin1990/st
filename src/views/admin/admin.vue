@@ -2,7 +2,32 @@
 	<div class="admin">
 		<el-collapse v-model="activeName" accordion>
 		  <el-collapse-item title="首页轮播图管理" name="1">
-		    首页轮播图管理
+				<el-row>
+			    <el-col :span="8" v-for="(item, index) in lblist" :key="index">
+				    <el-card :body-style="{ padding: '0px' }">
+				      <img :src="`https://wbtc.tech/${item.file}/${item.name}.png`" class="image">
+				      <div>
+				        <div class="bottom clearfix">
+				          <span class="lbspan">{{ item.oldname }}</span>
+				          <div class="button">
+										<el-radio v-model="item.showImg" label="1">展示</el-radio>
+	  								<el-radio v-model="item.showImg" label="0">不展示</el-radio>
+	  								<el-input v-model="item.showIndex" placeholder="展示顺序" style="width:170px" :disabled="item.showImg=='0'">
+	  									<template slot="prepend">展示顺序</template>
+	  								</el-input>
+				          </div>
+				          <div class="clearbtn"></div>
+				        </div>
+				      </div>
+				    </el-card>
+				  </el-col>
+				</el-row>
+				<el-row class="lbsubmit">
+					<el-col :span="22">.</el-col>
+					<el-col :span="2">
+						<el-button type="primary" @click="submitlb">保存修改</el-button>
+					</el-col>
+				</el-row>
 		  </el-collapse-item>
 		  <el-collapse-item title="首页产品展示图管理" name="2">
 		    首页产品展示图管理
@@ -61,7 +86,9 @@
 
 <script>
 	
-	import {upload} from '@/api/upLoadImg'	
+	import { upload } from '@/api/upLoadImg'	
+	import { getlb , postlb } from '@/api/admin/lb'
+	import { deepClone } from '@/utils/index'
 
 	export default{
 		name:'admin',
@@ -69,6 +96,7 @@
 			return{
 				activeName:'5',
 				options:['首页轮播图','首页产品展示','产品展示图'],
+				lblist:[],
 				introduce:{
 					action:'st_ad',
 					title:'',
@@ -79,11 +107,11 @@
 		},
 		computed:{
 			action(){
-				return process.env.BASE_API + '/php/upLoadImg.php'
+				return process.env.BASE_API + '/php/upload.php'
 			}
 		},
 		created(){
-
+			this.getlbData()
 		},
 		methods:{
 			sucs(res,file,filelist){
@@ -92,6 +120,23 @@
 					this.$message.success('上传成功');
 					this.$refs.upload.clearFiles();
 				}
+			},
+			getlbData(){
+				var query = {action:'st_getlb'};
+				getlb(query).then(res => {
+					if(!res.data)return
+					this.lblist = res.data
+				})
+			},
+			submitlb(){
+				var list = deepClone(this.lblist);
+				var query = {};
+				query.action = 'st_postlb';
+				query.list = list;
+				postlb(query).then(res => {
+					console.log(res.data)
+				})
+				// console.log(query)
 			},
 			beforeRemove(){
 
@@ -116,5 +161,25 @@
 
 
 <style scoped>
-	
+	.image{
+		height: 80%;
+		width: 100%;
+	}
+	.button{
+		float: right;
+	}
+	.clearbtn{
+		clear: both;
+	}
+	.bottom{
+		height: 50px;
+		line-height: 50px;
+		margin: 0 10px 0 10px;
+	}
+	.bottom span{
+		font-size: 1.2em;
+	}
+	.lbsubmit{
+		margin-top: 20px;
+	}
 </style>
