@@ -89,7 +89,6 @@ function update($link, $data, $table, $where = null) {
 	$where = $where == null ? '' : ' WHERE ' . $where;
 	$query = "UPDATE {$table} SET {$set} {$where}";
 	$res = mysqli_query ( $link, $query );
-	echo $query;
 	if ($res) {
 		return mysqli_affected_rows ( $link );
 	} else {

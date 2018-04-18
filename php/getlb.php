@@ -27,11 +27,12 @@
 			$id = $value['id'];
 			$res = update($link,$value,$table,"id='$id'");
 			if(!$res){
-				echo $value['title'].'插入失败';
+				echo 'NO';
 				continue;
+			}else{
+				echo 'OK';
 			};
 		};
-		echo 'OK';
 	};
 	//删除轮播图
 	if($post_act == 'st_dellb'){
