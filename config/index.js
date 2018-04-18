@@ -13,6 +13,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         target: 'http://localhost:90',
+        // target: 'https://wbtc.tech',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

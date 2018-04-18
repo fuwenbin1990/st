@@ -15,3 +15,11 @@ export function postlb(data){
 		data
 	})
 }
+
+export function dellb(data){
+	return ajax({
+		url:'/php/getlb.php',
+		method:'post',
+		data
+	})
+}

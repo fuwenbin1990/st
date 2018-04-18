@@ -1,7 +1,6 @@
 <template>
 	<div class="appnav">
 		<el-menu
-		  default-active="/"
 		  class="el-menu-demo"
 		  mode="horizontal"
 		  @select="handleSelect"
@@ -9,11 +8,11 @@
 		  text-color="#fff"
 		  :router="true"
 		  active-text-color="#ffd04b">
-		  <el-menu-item index="1">主页</el-menu-item>
+		  <el-menu-item index="/">主页</el-menu-item>
 		  <el-menu-item index="4">产品</el-menu-item>
 		  <el-menu-item index="6">留言板</el-menu-item>
 		  <el-menu-item index="5">关于我们</el-menu-item>
-		  <el-menu-item index="/">管理员入口</el-menu-item>
+		  <el-menu-item index="/admin">管理员入口</el-menu-item>
 		</el-menu>
 	</div>
 </template>

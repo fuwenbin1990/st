@@ -1,8 +1,8 @@
 import ajax from '@/utils/http'
 
-export function roundShowImg(params){
+export function allImgs(params){
 	return ajax({
-		url:'/php/st_roundShowImg.php',
+		url:'/php/index.php',
 		method:'get',
 		params
 	})
