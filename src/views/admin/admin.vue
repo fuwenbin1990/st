@@ -174,7 +174,6 @@
 		},
 		methods:{
 			sucs(res,file,filelist){
-				console.log(res)
 				if(res == 'OK'){
 					this.$message.success('上传成功');
 					this.$refs.upload.clearFiles();
@@ -186,7 +185,6 @@
 				getlb(query).then(res => {
 					if(!res.data)return;
 					this.lblist = res.data;
-					console.log(this.lblist);
 				})
 			},
 			submitlb(){
@@ -195,7 +193,11 @@
 				query.action = 'st_postlb';
 				query.list = list;
 				postlb(query).then(res => {
-					console.log(res.data)
+					if(res.data.indexOf('OK')>0){
+						this.$message.success('保存成功')
+					}else{
+						this.$message.error('保存失败')
+					}
 				})
 				// console.log(query)
 			},
@@ -231,7 +233,7 @@
 				this.$refs.upload.submit()
 			},
 			showDlog(id){
-				console.log(id)
+				
 			},
 		},
 	}
