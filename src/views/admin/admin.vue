@@ -1,7 +1,7 @@
 <template>
 	<div class="admin">
 		<el-collapse v-model="activeName" accordion @change='getlbData'>
-		  <el-collapse-item title="首页轮播图管理" name="首页轮播图">
+		  <el-collapse-item title="首页轮播图管理(最佳像素760*300)" name="首页轮播图">
 				<el-row>
 			    <el-col :span="8" v-for="(item, index) in lblist" :key="index">
 				    <el-card :body-style="{ padding: '0px' }">
@@ -30,9 +30,9 @@
 					</el-col>
 				</el-row>
 		  </el-collapse-item>
-		  <el-collapse-item title="首页产品展示图管理" name="首页产品展示">
+		  <el-collapse-item title="首页产品展示图管理(最佳像素390*278)" name="首页产品展示">
 		    <el-row>
-			    <el-col :span="3" v-for="(item, index) in lblist" :key="index">
+			    <el-col :span="4" v-for="(item, index) in lblist" :key="index">
 				    <el-card :body-style="{ padding: '0px' }">
 				      <img :src="`https://wbtc.tech/${item.file}/${item.name}.png`" class="image">
 				      <div>
@@ -44,7 +44,7 @@
 	  								<el-input v-model="item.showIndex" placeholder="展示顺序" style="width:220px" :disabled="item.showImg=='0'">
 	  									<template slot="prepend">展示顺序</template>
 	  								</el-input>
-	  								<el-input v-model="item.title" placeholder="展示顺序" style="width:220px">
+	  								<el-input v-model="item.title" placeholder="图片说明" style="width:220px">
 	  									<template slot="prepend">标题</template>
 	  								</el-input>
 	  								<el-button type="primary" size="medium" @click="dellb(item.id,item.file,item.name,item.part)" class="showBtn">删除</el-button>
@@ -62,12 +62,9 @@
 					</el-col>
 				</el-row>
 		  </el-collapse-item>
-		  <el-collapse-item title="首页文字管理" name="首页文字管理">
-		    首页文字管理
-		  </el-collapse-item>
-		  <el-collapse-item title="产品展示图管理" name="产品展示图">
+		  <el-collapse-item title="微信二维码(最佳像素280*280)(多个二维码只会展示最靠前的一张)" name="微信二维码">
 		    <el-row>
-			    <el-col :span="3" v-for="(item, index) in lblist" :key="index">
+			    <el-col :span="4" v-for="(item, index) in lblist" :key="index">
 				    <el-card :body-style="{ padding: '0px' }">
 				      <img :src="`https://wbtc.tech/${item.file}/${item.name}.png`" class="image">
 				      <div>
@@ -79,7 +76,39 @@
 	  								<el-input v-model="item.showIndex" placeholder="展示顺序" style="width:220px" :disabled="item.showImg=='0'">
 	  									<template slot="prepend">展示顺序</template>
 	  								</el-input>
-	  								<el-input v-model="item.title" placeholder="展示顺序" style="width:220px">
+	  								<el-input v-model="item.title" placeholder="图片说明" style="width:220px">
+	  									<template slot="prepend">标题</template>
+	  								</el-input>
+	  								<el-button type="primary" size="medium" @click="dellb(item.id,item.file,item.name,item.part)" class="showBtn">删除</el-button>
+				          </div>
+				          <div class="clearbtn"></div>
+				        </div>
+				      </div>
+				    </el-card>
+				  </el-col>
+				</el-row>
+				<el-row class="lbsubmit">
+					<el-col :span="22">.</el-col>
+					<el-col :span="2">
+						<el-button type="primary" @click="submitlb" v-if="typeof lblist == 'object' && lblist.length">保存修改</el-button>
+					</el-col>
+				</el-row>
+		  </el-collapse-item>
+		  <el-collapse-item title="产品展示图管理" name="产品展示图">
+		    <el-row>
+			    <el-col :span="4" v-for="(item, index) in lblist" :key="index">
+				    <el-card :body-style="{ padding: '0px' }">
+				      <img :src="`https://wbtc.tech/${item.file}/${item.name}.png`" class="image">
+				      <div>
+				        <div class="bottom clearfix">
+				          <span>名称:</span><span class="lbspan">{{ item.oldname }}</span>
+				          <div class="button">
+										<el-radio v-model="item.showImg" label="1">展示</el-radio>
+	  								<el-radio v-model="item.showImg" label="0">不展示</el-radio>
+	  								<el-input v-model="item.showIndex" placeholder="展示顺序" style="width:220px" :disabled="item.showImg=='0'">
+	  									<template slot="prepend">展示顺序</template>
+	  								</el-input>
+	  								<el-input v-model="item.title" placeholder="图片说明" style="width:220px">
 	  									<template slot="prepend">标题</template>
 	  								</el-input>
 	  								<el-button type="primary" size="medium" @click="dellb(item.id,item.file,item.name,item.part)" class="showBtn">删除</el-button>
@@ -154,7 +183,7 @@
 		data(){
 			return{
 				activeName:'5',
-				options:['首页轮播图','首页产品展示','产品展示图'],
+				options:['首页轮播图','首页产品展示','产品展示图','微信二维码'],
 				lblist:[],
 				introduce:{
 					action:'st_ad',

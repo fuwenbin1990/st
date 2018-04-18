@@ -19,6 +19,6 @@ export default {
 
 <style>
 #app {
-
+	background: #ccc
 }
 </style>
