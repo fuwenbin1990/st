@@ -2,23 +2,26 @@
   <div id="app">
     <appnav></appnav>
     <router-view></router-view>
+    <appfoot></appfoot>
   </div>
 </template>
 
 <script>
 
 import appnav from '@/components/nav'
+import appfoot from '@/components/AppFoot'
 
 export default {
   name: 'App',
   components:{
-    appnav
+    appnav,
+    appfoot
   }
 }
 </script>
 
-<style>
+<style scoped>
 #app {
-	background: #ccc
+	
 }
 </style>

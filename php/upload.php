@@ -38,6 +38,7 @@
 				'content' => $content,
 				'part' => $part,
 				'oldname' => $oldname,
+				'time' => $time,
 				);
 			$res_1 = insert($link,$arr,$table);
 			if($res_1){

@@ -294,7 +294,7 @@
 		margin-top: 20px;
 	}
 	.showBtn{
-		position: relative;
+		/*position: relative;
 		left: 150px;
-	}
+*/	}
 </style>
