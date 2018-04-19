@@ -20,7 +20,15 @@
 		}else{
 			echo "无数据";
 		};
-		
+	};
+	if($act == 'st_text'){
+		$query = "select * from st_home_text";
+		$arr = fetchAll($link,$query);
+		if($arr){
+			echo json_encode($arr);
+		}else{
+			echo '无数据';
+		};
 	};
 
 

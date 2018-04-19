@@ -1,5 +1,5 @@
 <template>
-	<div class="home">
+	<div class="home" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
 		<el-row class="row_1">
 			<el-col :span="24">
 				<h3>做会展 做广告 找上涂</h3>
@@ -16,7 +16,7 @@
 			</el-col>
 		</el-row>
 		<el-row>
-			<el-carousel :interval="5000"  height="300px" trigger="click" type="card">
+			<el-carousel :interval="3000"  height="300px" trigger="click" type="card">
 		    <el-carousel-item v-for="item in cardImg" :key="item.id" class="cardImg">
 		      <img :src="`https://wbtc.tech/${item.file}/${item.name}.png`" :alt="item.title" class="img-responsive">
 		    </el-carousel-item>
@@ -47,31 +47,37 @@
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row row3">
 				<div class="col-md-12">
 					<div class="col-xs-3 homeAbout">
 						<ul class="list-group">
 							<li class="list-group-item">上海上涂广告图文有限公司</li>
-							<li class="list-group-item">联系人：傅经理</li>
-							<li class="list-group-item">微信：15201872280</li>
-							<li class="list-group-item">联系电话：15201872280</li>
-							<li class="list-group-item">联系电话：13641712410</li>
-							<li class="list-group-item">地址：上海市长宁区平武路8号</li>
-							<li class="list-group-item">邮箱:&nbsp992331880@qq.com</li>
+							<li class="list-group-item" v-if="text.user">联系人：{{text.user}}</li>
+							<li class="list-group-item" v-if="text.wx">微信：{{text.wx}}</li>
+							<li class="list-group-item" v-if="text.QQ1">QQ1：{{text.QQ1}}</li>
+							<li class="list-group-item" v-if="text.QQ2">QQ2：{{text.QQ2}}</li>
+							<li class="list-group-item" v-if="text.QQ3">QQ3：{{text.QQ3}}</li>
+							<li class="list-group-item" v-if="text.tel1">联系电话1：{{text.tel1}}</li>
+							<li class="list-group-item" v-if="text.tel2">联系电话2：{{text.tel2}}</li>
+							<li class="list-group-item" v-if="text.tel3">联系电话3：{{text.tel3}}</li>
+							<li class="list-group-item" v-if="text.adress">地址：{{text.adress}}</li>
+							<li class="list-group-item" v-if="text.email">邮箱：{{text.email}}</li>
 						</ul>
 					</div>
 					<div class="col-xs-6 homeAbout">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<p>上海上涂广告有限公司位于上海市长宁区平武路8号，拥有先进的成套数码印刷设备，为您提供一对一业务洽谈，上门接稿、送货、等优质服务。</p>
-								<p>我们客户涉及大型广告公司、建筑、传媒、服装、装潢、设计院、日用品、化工、食品等各个不同的领域。服务项目：排版设计、彩色数码快印（彩印、复印、印刷）、传统打印、企业样本、宣传册（彩页）、工程图以及效果图输出（晒图）、请帖贺卡、文本装订（无线精装、铁圈精装、胡贴装、无线胶装）、光盘刻录、高精度写真喷绘、广告照片以及相关创意设计、高档中西餐厅精装菜谱、刻字、高精度扫描、X展架、易拉宝、台历以及挂历、锦旗横幅、标书、奖杯、铜牌刻字、台卡、LOGO墙、灯箱、名片、海报、PVC证卡、会务会展、办公耗材等等。</p>
-								<p>我们的愿景：专注品质与服务，成就品牌与梦想！</p>
-								<br>
+								<p v-if="text.introduce1">{{text.introduce1}}</p>
+								<p v-if="text.introduce2">{{text.introduce2}}</p>
+								<p v-if="text.introduce3">{{text.introduce3}}</p>
+								<p v-if="text.introduce4">{{text.introduce4}}</p>
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-3 homeAbout  WXImg" v-if="WXImg.length">
-						<img :src="`https://wbtc.tech/${WXImg[0].file}/${WXImg[0].name}.png`" :alt="WXImg[0].title" class="img-responsive">
+					<div class="col-xs-3 homeAbout" v-if="WXImg.length">
+						<div class="WXImg">
+							<img :src="`https://wbtc.tech/${WXImg[0].file}/${WXImg[0].name}.png`" :alt="WXImg[0].title" class="img-responsive">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -83,7 +89,7 @@
 
 
 <script>
-	import {allImgs} from '@/api/index'
+	import { allImgs , text } from '@/api/index'
 
 	export default{
 
@@ -94,12 +100,15 @@
 				cardImg:[],
 				showImg:[],
 				WXImg:[],
-				searchWord:''
+				text:{},
+				searchWord:'',
+				loading:true,
 			}
 		},
 		methods:{
 			getdata(){
 				var query = {action:'st_home'};
+				var queryText = {action:'st_text'};
 				allImgs(query).then(res => {
 					this.allImg = res.data;
 					this.allImg.sort(function(a,b){
@@ -114,7 +123,10 @@
 					this.WXImg = this.allImg.filter(val => {
 						return val.part == '微信二维码'
 					});
-					console.log(this.showImg)
+					this.loading = false;
+				})
+				text(queryText).then(res => {
+					this.text = res.data[0];
 				})
 			}
 		},
@@ -166,14 +178,21 @@
 		letter-spacing: 20px;
 	}
 	.homeAbout{
-		height: 300px;
+		/*height: 300px;*/
+		/*padding: 0px;*/
+		/*margin: 0px;*/
 	}
 	.home{
-		background: #ccc;
+	/*	background: #ccc;*/
 		min-width: 1378px;
 	}
 	.WXImg{
-		min-height: 280px;
-		min-width: 280px;
+		max-height: 280px;
+		max-width: 280px;
+		min-width: 200px;
+		min-height: 200px;
+	}
+	.row3{
+		margin-bottom: 15px;
 	}
 </style>

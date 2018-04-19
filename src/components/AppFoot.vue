@@ -55,5 +55,9 @@ export default{
 	#p3{
 		font-size: 0.8em;
 	}
+	.appFoot{
+		width: 100%;
+		min-width: 1378px;
+	}
 </style>
 	

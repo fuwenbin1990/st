@@ -7,3 +7,11 @@ export function allImgs(params){
 		params
 	})
 }
+
+export function text(params){
+	return ajax({
+		url:'/php/index.php',
+		method:'get',
+		params
+	})
+}

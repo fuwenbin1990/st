@@ -2,12 +2,12 @@
 	<div class="container-fluid Search">
 		<div class="row row1">
 			<div class="col-xs-4">
-				<ol class="breadcrumb">
-			    <li><a href="#">上涂广告</a></li>
-			    <li class="active">{{way}}</li>
-				</ol>
+				<!-- <ol class="breadcrumb">
+				    <li><a href="#">上涂广告</a></li>
+				    <li class="active">{{way}}</li>
+				</ol> -->
 			</div>
-			<div class="col-xs-4"></div>
+			
 			<div class="col-xs-4 search">
 				<div class="input-group">
           <input type="text" class="form-control">
@@ -16,6 +16,7 @@
           </span>
      		</div>
 			</div>
+			<div class="col-xs-4"></div>
 			<div style="clear:both"></div>
 		</div>
 	</div>
@@ -64,10 +65,11 @@ export default{
 		left: -5%;
 	}
 	.search{
-		float: right;
+		/*float: right;*/
 	}
 	.row1{
 		/*background: red;*/
 		margin-top: 15px;
+		/*background: #ccc;*/
 	}
 </style>

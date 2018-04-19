@@ -1,5 +1,5 @@
 <template>
-	<div class="container-fluid produce">
+	<div class="container-fluid produce" v-loading="loading" element-loading-text="拼命加载中" element-loading-spinner="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.8)">
 		<search></search>
 		<div class="row">
 			<div class="col-xs-12">
@@ -55,10 +55,12 @@ export default{
 			lmit:20,
 			allPage:Number,
 			page:Number,
+			loading:true,
 		}
 	},
 	methods:{
 		handleClick(){
+			this.loading = true;
 			if(this.showImgSort == 'allSort'){
 				this.allShowImgs.sort(function(){
 					return Math.random()-0.5;
@@ -93,6 +95,7 @@ export default{
 			this.total = this.allShowImgs.length;
 			this.allPage = Math.ceil(this.total/this.lmit);
 			this.showImgs = this.allShowImgs.slice((this.page-1)*this.lmit,this.page*this.lmit);
+			this.loading = false;
 		},
 		getPage(e){
 			this.page = e.currentTarget.getAttribute('index');

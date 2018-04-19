@@ -10,7 +10,7 @@
 	$link->query('SET character_set_results = utf8;');
 	$link->query('SET character_set_connection = utf8;');
 	$table = 'st_imgs';
-
+	$table_text = 'st_home_text';
 	$act = isset($_GET['action'])? $_GET['action']: '';
 	$post_act = isset($_POST['action'])? $_POST['action']: '';
 	//获取轮播图
@@ -59,6 +59,56 @@
 			}else{
 				echo 'NO';
 			};
+		};
+	};
+	if($post_act == 'st_subText'){
+		$user = isset($_POST['user']) ? $_POST['user'] : '';
+		$wx = isset($_POST['wx']) ? $_POST['wx'] : '';
+		$QQ1 = isset($_POST['QQ1']) ? $_POST['QQ1'] : '';
+		$QQ2 = isset($_POST['QQ2']) ? $_POST['QQ2'] : '';
+		$QQ3 = isset($_POST['QQ3']) ? $_POST['QQ3'] : '';
+		$tel1 = isset($_POST['tel1']) ? $_POST['tel1'] : '';
+		$tel2 = isset($_POST['tel2']) ? $_POST['tel2'] : '';
+		$tel3 = isset($_POST['tel3']) ? $_POST['tel3'] : '';
+		$adress = isset($_POST['adress']) ? $_POST['adress'] : '';
+		$email = isset($_POST['email']) ? $_POST['email'] : '';
+		$introduce1 = isset($_POST['introduce1']) ? $_POST['introduce1'] : '';
+		$introduce2 = isset($_POST['introduce2']) ? $_POST['introduce2'] : '';
+		$introduce3 = isset($_POST['introduce3']) ? $_POST['introduce3'] : '';
+		$introduce4 = isset($_POST['introduce4']) ? $_POST['introduce4'] : '';
+		$arr = array(
+			'user' => $user,
+			'wx' => $wx,
+			'QQ1' => $QQ1,
+			'QQ2' => $QQ2,
+			'QQ3' => $QQ3,
+			'tel1' => $tel1,
+			'tel2' => $tel2,
+			'tel3' => $tel3,
+			'adress' => $adress,
+			'email' => $email,
+			'introduce1' => $introduce1,
+			'introduce2' => $introduce2,
+			'introduce3' => $introduce3,
+			'introduce4' => $introduce4,
+			);
+		$res = update($link,$arr,$table_text,"id=1");
+		if($res){
+			echo 'OK';
+		}else{
+			echo 'NO';
+		};
+	};
+
+	if($post_act == 'st_validate_admin'){
+		$admin = isset($_POST['adminUser']) ? $_POST['adminUser'] : '';
+		$password = isset($_POST['adminPassworld']) ? $_POST['adminPassworld'] : '';
+		$query = "select * from st_admin where admin=1";
+		$arr = fetchOne($link,$query);
+		if($admin === $arr['user'] && $password === $arr['passworld']){
+			echo 'OK';
+		}else{
+			echo 'NO';
 		};
 	};
  ?>

@@ -23,3 +23,11 @@ export function dellb(data){
 		data
 	})
 }
+
+export function postAdmin(data){
+	return ajax({
+		url:'/php/getlb.php',
+		method:'post',
+		data
+	})
+}
