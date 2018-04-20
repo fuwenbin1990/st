@@ -6,12 +6,17 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App'
 import router from './router'
 import axios from "axios"
+// require('bootstrap')
+// import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
 Vue.use(ElementUI)
+// Vue.use(BootstrapVue)
 
 /* eslint-disable no-new */
 new Vue({

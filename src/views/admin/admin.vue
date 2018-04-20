@@ -221,13 +221,15 @@
 		<div v-else="status" class="login" id="login">
 			<el-form ref="form" :model="form" label-width="80px" class="adminForm" label-position="right">
 			  <el-form-item label="admin:">
-			    <el-input v-model="adminForm.adminUser"></el-input>
+			    <el-input v-model="adminForm.adminUser">
+			    	<template slot="prepend"><!-- <span class="el-icon-edit"></span> --></template>
+			    </el-input>
 			  </el-form-item>
 			  <el-form-item label="password:">
 			    <el-input v-model="adminForm.adminPassworld" type="password" @keyup.enter.native="adminValidate"></el-input>
 			  </el-form-item>
 			  <el-form-item>
-			    <el-button type="primary" @click="adminValidate" style="float:right">验证身份信息</el-button>
+			    <el-button type="primary" @click="adminValidate" style="width:100%">验证身份信息</el-button>
 			  </el-form-item>
 			</el-form>
 		</div>
@@ -247,38 +249,38 @@
 		name:'admin',
 		data(){
 			return{
-				validate:false,
-				activeName:'5',
-				options:['首页轮播图','首页产品展示','产品展示图','微信二维码'],
-				lblist:[],
-				adminForm:{
-					action:'st_validate_admin',
-					adminUser:'',
-					adminPassworld:'',
+				validate					:false,
+				activeName				:'5',
+				options						:['首页轮播图','首页产品展示','产品展示图','微信二维码'],
+				lblist						:[],
+				adminForm					:{
+					action					:'st_validate_admin',
+					adminUser				:'',
+					adminPassworld	:'',
 				},
-				form:{
-					action:'st_subText',
-					user:'',
-					wx:'',
-					QQ1:'',
-					QQ2:'',
-					QQ3:'',
-					tel1:'',
-					tel2:'',
-					tel3:'',
-					adress:'',
-					email:'',
-					introduce1:'',
-					introduce2:'',
-					introduce3:'',
-					introduce4:'',
+				form							:{
+					action					:'st_subText',
+					user						:'',
+					wx							:'',
+					QQ1							:'',
+					QQ2							:'',
+					QQ3							:'',
+					tel1						:'',
+					tel2						:'',
+					tel3						:'',
+					adress					:'',
+					email						:'',
+					introduce1			:'',
+					introduce2			:'',
+					introduce3			:'',
+					introduce4			:'',
 				},
-				introduce:{
-					action:'st_ad',
-					title:'',
-					content:'',
-					part:'',
-					loginH:'',
+				introduce					:{
+					action					:'st_ad',
+					title						:'',
+					content					:'',
+					part						:'',
+					loginH					:'',
 				}
 			}
 		},
@@ -400,6 +402,7 @@
 
 
 <style scoped>
+	
 	.image{
 		height: 80%;
 		width: 100%;
